@@ -56,6 +56,15 @@
     @media (max-width:600px){
       .card img{height:140px}
       header{padding:14px}
+
+    .card video {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+}
+
     }
   </style>
 </head>
@@ -119,6 +128,18 @@
         <img loading="lazy" src="s10.jpg" alt="Sadıx 9">
         <div class="meta"><h3>Sadıx 9</h3><p>Düz Sadıx</p></div>
       </article>
+
+      <article class="card" data-index="video">
+        <video controls autoplay loop muted>
+          <source src="sv.mp4" type="video/mp4">
+          Sizin brauzer video tagini dəstəkləmir.
+        </video>
+        <div class="meta">
+          <h3>Sadıx Premium</h3>
+          <p>Trend Sadıx</p>
+        </div>
+      </article>
+
     </section>
   </main>
 
