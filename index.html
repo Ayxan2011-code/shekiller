@@ -1,222 +1,451 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sadıxlar</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:linear-gradient(180deg,#f8fbff 0%, #eef6ff 50%, #f7fbff 100%);
-      --card:#ffffff;
-      --muted:#4b5563;
-      --accent:#3b82f6;
-      --shadow:0 14px 40px rgba(30,60,120,0.12);
-      --radius:16px;
-      font-family:'Inter',system-ui;
-    }
-    body{background:var(--bg);position:relative;overflow-x:hidden}
-    body::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(circle at 10% 10%, rgba(59,130,246,0.05), transparent 20%), radial-gradient(circle at 90% 90%, rgba(99,102,241,0.04), transparent 18%);mix-blend-mode:overlay;}
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:#0f172a;line-height:1.4}
-
-    header{display:flex;align-items:center;justify-content:space-between;padding:24px;max-width:1100px;margin:28px auto}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#fff,#e6f0ff);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);box-shadow:var(--shadow)}
-    h1{font-size:18px;margin:0}
-    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
-
-    main{max-width:1100px;margin:0 auto;padding:0 20px 120px}
-
-    /* Grid */
-    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
-    .card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;display:flex;flex-direction:column}
-    .card img{width:100%;height:170px;object-fit:cover;display:block}
-    .card .meta{padding:12px}
-    .card .meta h3{margin:0;font-size:14px}
-    .card .meta p{margin:6px 0 0;color:var(--muted);font-size:12px}
-
-    /* footer */
-    footer{max-width:1100px;margin:28px auto;text-align:center;color:var(--muted);font-size:13px}
-
-    /* Lightbox modal */
-    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(7,11,20,0.6);z-index:1000;padding:28px}
-    .lightbox.open{display:flex}
-    .lightbox .pane{max-width:1100px;width:100%;max-height:90vh;background:transparent;display:flex;align-items:center;justify-content:center}
-    .lightbox img{max-width:100%;max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(2,6,23,0.6)}
-    .lightbox .info{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);color:#fff;background:rgba(0,0,0,0.35);padding:8px 12px;border-radius:10px;font-size:13px}
-
-    .controls{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;pointer-events:none}
-    .btn{pointer-events:auto;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(6px);width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 8px}
-    .btn svg{width:18px;height:18px;fill:#fff}
-
-    .close{position:absolute;top:22px;right:22px;width:46px;height:46px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.12)}
-
-    @media (max-width:600px){
-      .card img{height:140px}
-      header{padding:14px}
-
-    .card video {
-      width: 100%;
-      height: 170px;
-      object-fit: cover;
-      border-radius: 0;
-      display: block;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sadıxlar Qalereya + Chat + Ayarlar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:linear-gradient(180deg,#f8fbff 0%, #eef6ff 50%, #f7fbff 100%);
+  --card:#ffffff;
+  --muted:#4b5563;
+  --accent:#3b82f6;
+  --shadow:0 14px 40px rgba(30,60,120,0.12);
+  --radius:16px;
+  --text:#0f172a;
+  --chat-bg:#f9f9f9;
+  --chat-text:#0f172a;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  margin:0;
+  overflow-x:hidden;
+  position:relative;
+  font-family:'Inter',sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  overflow-x: hidden;
+  position: relative;
+  background-image: url('https://image.shutterstock.com/image-vector/black-white-vector-endless-260nw-67769096.jpg'); /* Light mode */
+  background-size: cover;
+  background-repeat: repeat;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(59,130,246,0.05), transparent 20%),
+    radial-gradient(circle at 90% 90%, rgba(99,102,241,0.04), transparent 18%);
+  mix-blend-mode:overlay;
+}
+body.dark{
+  --bg:#121212;
+  --card:#1e1e2e;
+  --muted:#aaa;
+  --text:#f0f0f0;
+  --chat-bg:#1e1e2f;
+  --chat-text:#fff;
+    --bg:#121212;
+  --card:#1e1e2e;
+  --muted:#aaa;
+  --text:#f0f0f0;
+  --chat-bg:#1e1e2f;
+  --chat-text:#fff;
+  background-image: url('https://www.freepik.com/free-photos-vectors/black-background-with-patterns'); /* Dark mode */
+  background-size: cover;
+  background-repeat: repeat;
 }
 
-    }
-  </style>
+/* Header */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px;
+  max-width:1100px;
+  margin:28px auto;
+}
+.brand{display:flex;gap:12px;align-items:center;}
+.logo{
+  width:48px;
+  height:48px;
+  border-radius:10px;
+  background:linear-gradient(135deg,#fff,#e6f0ff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:var(--accent);
+  box-shadow:var(--shadow);
+}
+h1{font-size:18px;margin:0;}
+p.lead{margin:4px 0 0;color:var(--muted);font-size:13px;}
+
+/* Main gallery */
+main{max-width:1100px;margin:0 auto;padding:0 20px 120px;}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:18px;
+}
+.card{
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+}
+.card img, .card video{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  display:block;
+}
+.card .meta{
+  padding:12px;
+}
+.card .meta h3{margin:0;font-size:14px;}
+.card .meta p{margin:6px 0 0;color:var(--muted);font-size:12px;}
+
+/* Footer */
+footer{max-width:1100px;margin:28px auto;text-align:center;color:var(--muted);font-size:13px;}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(7,11,20,0.6);
+  z-index:1000;
+  padding:28px;
+}
+.lightbox.open{display:flex;}
+.lightbox .pane{
+  max-width:1100px;
+  width:100%;
+  max-height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.lightbox img, .lightbox video{
+  max-width:100%;
+  max-height:88vh;
+  border-radius:12px;
+  box-shadow:0 20px 60px rgba(2,6,23,0.6);
+}
+.lightbox .info{
+  position:absolute;
+  bottom:38px;
+  left:50%;
+  transform:translateX(-50%);
+  color:#fff;
+  background:rgba(0,0,0,0.35);
+  padding:8px 12px;
+  border-radius:10px;
+  font-size:13px;
+}
+.controls{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  pointer-events:none;
+}
+.btn{
+  pointer-events:auto;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter:blur(6px);
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 8px;
+}
+.btn svg{width:18px;height:18px;fill:#fff;}
+.close{
+  position:absolute;
+  top:22px;
+  right:22px;
+  width:46px;
+  height:46px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,0.12);
+  cursor:pointer;
+}
+
+/* Chat panel */
+#chatToggle{
+  position:fixed;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+  z-index:2000;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  padding:12px;
+  border-radius:8px 0 0 8px;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+#chatPanel{
+  position:fixed;
+  top:0;
+  right:-300px;
+  width:300px;
+  height:100%;
+  background:var(--chat-bg);
+  color:var(--chat-text);
+  box-shadow:-4px 0 12px rgba(0,0,0,0.2);
+  transition:right 0.3s, background 0.3s, color 0.3s;
+  z-index:1500;
+  display:flex;
+  flex-direction:column;
+}
+#chatPanel header{
+  background:#111;
+  color:#fff;
+  padding:12px;
+  font-weight:600;
+}
+#chatMessages{
+  flex:1;
+  padding:12px;
+  overflow-y:auto;
+}
+#chatMessages div{
+  margin-bottom:8px;
+  padding:6px 8px;
+  border-radius:6px;
+  background:rgba(0,0,0,0.1);
+}
+#chatInput{
+  display:flex;
+  padding:12px;
+  border-top:1px solid #333;
+}
+#chatInput input{
+  flex:1;
+  padding:8px;
+  border:1px solid #555;
+  border-radius:6px;
+  margin-right:8px;
+  background:#fff;
+  color:#000;
+}
+body.dark #chatInput input{
+  background:#222;
+  color:#fff;
+}
+#chatInput button{
+  padding:8px 12px;
+  border:none;
+  background:var(--accent);
+  color:#fff;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* Settings panel sol */
+#settingsToggle{
+  position:fixed;
+  top:50%;
+  left:0;
+  transform:translateY(-50%);
+  z-index:2000;
+  background:#333;
+  color:#fff;
+  border:none;
+  padding:12px;
+  border-radius:0 8px 8px 0;
+  cursor:pointer;
+  box-shadow:4px 4px 10px rgba(0,0,0,0.2);
+}
+#settingsPanel{
+  position:fixed;
+  top:0;
+  left:-300px;
+  width:300px;
+  height:100%;
+  background:#222;
+  color:#fff;
+  box-shadow:4px 0 12px rgba(0,0,0,0.2);
+  transition:left 0.3s;
+  z-index:1500;
+  display:flex;
+  flex-direction:column;
+}
+#settingsPanel header{background:#111;padding:12px;font-weight:600;}
+#settingsPanel .content{flex:1;padding:12px;}
+#settingsPanel label{display:block;margin-top:12px;font-size:13px;}
+#settingsPanel input, #settingsPanel select{
+  width:100%;
+  padding:8px;
+  margin-top:4px;
+  border-radius:6px;
+  border:1px solid #555;
+  background:#333;
+  color:#fff;
+}
+
+@media(max-width:600px){
+  .card img,.card video{height:140px;}
+  header{padding:14px;}
+  #chatPanel,#settingsPanel{width:80%;}
+}
+</style>
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo">A</div>
-      <div>
-        <h1>Sadıx Qalareya Mövsümü 2025</h1>
-        <p class="lead">Sadıxların 10 növü</p>
-      </div>
-    </div>
+
+<header>
+  <div class="brand">
+    <div class="logo">A</div>
     <div>
-      <small style="color:var(--muted)">Xoş Seyirlər!</small>
-    </div>
-  </header>
-
-  <main>
-    <section class="gallery" id="gallery">
-      <article class="card" data-index="0">
-        <img loading="lazy" src="s0.jpg" alt="Sadıx 1">
-        <div class="meta"><h3>Sadıx 1</h3><p>Super Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="1">
-        <img loading="lazy" src="s1.jpg" alt="Sadıx 2">
-        <div class="meta"><h3>Sadıx 2</h3><p>Bodybuilder Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="4">
-        <img loading="lazy" src="s4.jpg" alt="Sadıx 3">
-        <div class="meta"><h3>Sadıx 3</h3><p>Meyvəçi Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="5">
-        <img loading="lazy" src="s5.jpg" alt="Sadıx 4">
-        <div class="meta"><h3>Sadıx 4</h3><p>Boksyor Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="6">
-        <img loading="lazy" src="s6.jpg" alt="Sadıx 5">
-        <div class="meta"><h3>Sadıx 5</h3><p>Oxuyan Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="7">
-        <img loading="lazy" src="s7.jpg" alt="Sadıx 6">
-        <div class="meta"><h3>Sadıx 6</h3><p>İdmançı Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="8">
-        <img loading="lazy" src="s8.jpg" alt="Sadıx 7">
-        <div class="meta"><h3>Sadıx 7</h3><p>Jim edən Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="9">
-        <img loading="lazy" src="s9.jpg" alt="Sadıx 8">
-        <div class="meta"><h3>Sadıx 8</h3><p>YouTuber Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="10">
-        <img loading="lazy" src="s10.jpg" alt="Sadıx 9">
-        <div class="meta"><h3>Sadıx 9</h3><p>Düz Sadıx</p></div>
-      </article>
-
-      <article class="card" data-index="video">
-        <video controls autoplay loop muted>
-          <source src="sv.mp4" type="video/mp4">
-          Sizin brauzer video tagini dəstəkləmir.
-        </video>
-        <div class="meta">
-          <h3>Sadıx Premium</h3>
-          <p>Trend Sadıx</p>
-        </div>
-      </article>
-
-    </section>
-  </main>
-
-  <footer>
-    Şəkillər Sadıxlara məxsusdur. &copy; 2024
-  </footer>
-
-  <!-- Lightbox -->
-  <div id="lightbox" class="lightbox" aria-hidden="true">
-    <div class="pane">
-      <button class="close" id="lbClose" aria-label="Bağla">✕</button>
-      <div class="controls">
-        <div style="display:flex;align-items:center;">
-          <button class="btn" id="prev" aria-label="Əvvəlki">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M15 6L9 12l6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-        <div style="display:flex;align-items:center;">
-          <button class="btn" id="next" aria-label="Sonrakı">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-        </div>
-      </div>
-      <img id="lbImg" src="" alt=""/>
-      <div id="lbInfo" class="info"></div>
+      <h1>Sadıx Qalereya Mövsümü 2025</h1>
+      <p class="lead">Sadıxların 10 növü</p>
     </div>
   </div>
+  <div><small style="color:var(--muted)">Xoş Seyirlər!</small></div>
+</header>
 
-  <script>
-    const cards = Array.from(document.querySelectorAll('.card'));
-    const lightbox = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lbImg');
-    const lbInfo = document.getElementById('lbInfo');
-    const lbClose = document.getElementById('lbClose');
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
+<main>
+  <section class="gallery">
+    <article class="card" data-type="img" data-src="s0.jpg" data-caption="Sadıx 1 — Super Sadıx"><img src="s0.jpg"><div class="meta"><h3>Sadıx 1</h3><p>Super Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s1.jpg" data-caption="Sadıx 2 — Bodybuilder Sadıx"><img src="s1.jpg"><div class="meta"><h3>Sadıx 2</h3><p>Bodybuilder Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s2.jpg" data-caption="Sadıx 3 — Meyvəçi Sadıx"><img src="s2.jpg"><div class="meta"><h3>Sadıx 3</h3><p>Meyvəçi Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s3.jpg" data-caption="Sadıx 4 — Boksyor Sadıx"><img src="s3.jpg"><div class="meta"><h3>Sadıx 4</h3><p>Boksyor Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s4.jpg" data-caption="Sadıx 5 — Oxuyan Sadıx"><img src="s4.jpg"><div class="meta"><h3>Sadıx 5</h3><p>Oxuyan Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s5.jpg" data-caption="Sadıx 6 — İdmançı Sadıx"><img src="s5.jpg"><div class="meta"><h3>Sadıx 6</h3><p>İdmançı Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s6.jpg" data-caption="Sadıx 7 — Jim edən Sadıx"><img src="s6.jpg"><div class="meta"><h3>Sadıx 7</h3><p>Jim edən Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s7.jpg" data-caption="Sadıx 8 — YouTuber Sadıx"><img src="s7.jpg"><div class="meta"><h3>Sadıx 8</h3><p>YouTuber Sadıx</p></div></article>
+    <article class="card" data-type="img" data-src="s8.jpg" data-caption="Sadıx 9 — Düz Sadıx"><img src="s8.jpg"><div class="meta"><h3>Sadıx 9</h3><p>Düz Sadıx</p></div></article>
+    <article class="card" data-type="video" data-src="sv.mp4" data-caption="Sadıx Premium — Trend Sadıx"><video controls autoplay loop muted><source src="sv.mp4"></video><div class="meta"><h3>Sadıx Premium</h3><p>Trend Sadıx</p></div></article>
+  </section>
+</main>
 
-    let current = 0;
-    const imgs = cards.map(c => c.querySelector('img').getAttribute('src'));
-    const captions = cards.map(c => c.querySelector('.meta h3').textContent + ' — ' + c.querySelector('.meta p').textContent);
+<footer>Şəkillər Sadıxlara məxsusdur. &copy; 2024</footer>
 
-    function openLightbox(i){
-      current = i;
-      lbImg.src = imgs[current];
-      lbImg.alt = captions[current];
-      lbInfo.textContent = captions[current];
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox(){
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-    function showNext(){ current = (current + 1) % imgs.length; openLightbox(current); }
-    function showPrev(){ current = (current - 1 + imgs.length) % imgs.length; openLightbox(current); }
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <div class="pane">
+    <button class="close" id="lbClose">✕</button>
+    <div class="controls">
+      <button class="btn" id="prev"><svg viewBox="0 0 24 24"><path d="M15 6L9 12l6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="btn" id="next"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <div id="mediaContainer"></div>
+    <div class="info" id="lbInfo"></div>
+  </div>
+</div>
 
-    cards.forEach((c,i)=> c.addEventListener('click',()=> openLightbox(i)));
-    lbClose.addEventListener('click', closeLightbox);
-    nextBtn.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
-    prevBtn.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
-    lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) closeLightbox(); });
+<!-- Chat panel -->
+<button id="chatToggle">Chat</button>
+<div id="chatPanel">
+  <header>Chat Paneli</header>
+  <div id="chatMessages"></div>
+  <div id="chatInput">
+    <input type="text" id="chatText" placeholder="Mesaj yazın...">
+    <button id="sendBtn">Göndər</button>
+  </div>
+</div>
 
-    // Keyboard
-    window.addEventListener('keydown', (e)=>{
-      if(lightbox.classList.contains('open')){
-        if(e.key === 'Escape') closeLightbox();
-        if(e.key === 'ArrowRight') showNext();
-        if(e.key === 'ArrowLeft') showPrev();
-      }
-    });
+<!-- Settings panel sol -->
+<button id="settingsToggle">Ayarlar</button>
+<div id="settingsPanel">
+  <header>Ayarlar</header>
+  <div class="content">
+    <label for="username">İstifadəçi Adı:</label>
+    <input type="text" id="username" placeholder="Adınızı yazın">
+    <label for="darkMode">Qaranlıq Rejim:</label>
+    <select id="darkMode">
+      <option value="off">Off</option>
+      <option value="on">On</option>
+    </select>
+  </div>
+</div>
 
-    // Accessibility: preload image when navigating
-    function preload(i){ const img = new Image(); img.src = imgs[(i+1)%imgs.length]; }
-    nextBtn.addEventListener('mouseover', ()=> preload(current));
+<script>
+// Lightbox
+const cards = Array.from(document.querySelectorAll('.card'));
+const lightbox = document.getElementById('lightbox');
+const mediaContainer = document.getElementById('mediaContainer');
+const lbInfo = document.getElementById('lbInfo');
+let current=0;
+function openLightbox(index){
+  current=index;
+  const card=cards[current];
+  const type=card.dataset.type;
+  const src=card.dataset.src;
+  const caption=card.dataset.caption;
+  mediaContainer.innerHTML='';
+  if(type==='img'){ const img=document.createElement('img'); img.src=src; img.alt=caption; mediaContainer.appendChild(img);}
+  if(type==='video'){ const video=document.createElement('video'); video.src=src; video.controls=true; video.autoplay=true; video.loop=true; mediaContainer.appendChild(video);}
+  lbInfo.textContent=caption;
+  lightbox.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){lightbox.classList.remove('open'); document.body.style.overflow=''; mediaContainer.innerHTML='';}
+function showNext(){current=(current+1)%cards.length; openLightbox(current);}
+function showPrev(){current=(current-1+cards.length)%cards.length; openLightbox(current);}
+cards.forEach((c,i)=>c.addEventListener('click',()=>openLightbox(i)));
+document.getElementById('lbClose').addEventListener('click',closeLightbox);
+document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();showNext();});
+document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();showPrev();});
+lightbox.addEventListener('click',e=>{if(e.target===lightbox) closeLightbox();});
+window.addEventListener('keydown',e=>{if(lightbox.classList.contains('open')){if(e.key==='Escape')closeLightbox(); if(e.key==='ArrowRight')showNext(); if(e.key==='ArrowLeft')showPrev();}});
 
-  </script>
+// Chat
+const chatToggle=document.getElementById('chatToggle');
+const chatPanel=document.getElementById('chatPanel');
+const chatMessages=document.getElementById('chatMessages');
+const chatText=document.getElementById('chatText');
+const sendBtn=document.getElementById('sendBtn');
+const usernameInput=document.getElementById('username');
+let username='İstifadəçi';
+chatToggle.addEventListener('click',()=>{chatPanel.style.right=(chatPanel.style.right==='0px')?'-300px':'0px';});
+sendBtn.addEventListener('click',()=>{
+  if(chatText.value.trim()==='') return;
+  if(usernameInput.value.trim()!=='') username=usernameInput.value.trim();
+  const msg=document.createElement('div');
+  msg.textContent=`${username}: ${chatText.value}`;
+  chatMessages.appendChild(msg);
+  chatText.value='';
+  chatMessages.scrollTop=chatMessages.scrollHeight;
+});
+chatText.addEventListener('keypress',e=>{if(e.key==='Enter') sendBtn.click();});
+
+// Settings
+const settingsToggle=document.getElementById('settingsToggle');
+const settingsPanel=document.getElementById('settingsPanel');
+settingsToggle.addEventListener('click',()=>{settingsPanel.style.left=(settingsPanel.style.left==='0px')?'-300px':'0px';});
+
+// Dark Mode
+const darkModeSelect=document.getElementById('darkMode');
+darkModeSelect.addEventListener('change',()=>{
+  if(darkModeSelect.value==='on'){ document.body.classList.add('dark'); }
+  else{ document.body.classList.remove('dark'); }
+});
+</script>
 </body>
 </html>
